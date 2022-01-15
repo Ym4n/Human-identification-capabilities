@@ -1,26 +1,34 @@
 import face_recognition
-from os import path
+from os import path, remove
 from shutil import copy
 import glob
 import vlc
 from gtts import gTTS
 import time
-
+from config import ROOT_DIR,TEMP_DIR,LOAD_DIR, Without_voice_announcement
+import numpy as np
 
 class RecognitionClass:
     def __init__(self):
         
         # Load known pictures
+        self.update_known_faces()
+
+    def update_known_faces(self):
         self.known_face_names = []
         self.known_face_encodings = []
-        for img_path in glob.glob("/home/pi/My_robot/face_and_voice/*.jpg"):
+        for img_path in glob.glob(LOAD_DIR+"/*.jpg"):
             filename = path.split(img_path)[-1]
             # check if voice file exists
-            if path.exists("/home/pi/My_robot/face_and_voice/"+filename[:-4]+".mp3"):
+            if path.exists(LOAD_DIR+"/"+filename[:-4]+".mp3"):
                 image = face_recognition.load_image_file(img_path)
-                face_encoding_data = face_recognition.face_encodings(image)[0]
-                self.known_face_names.append(filename[:-4])
-                self.known_face_encodings.append(face_encoding_data)
+                face_encoding_data = face_recognition.face_encodings(image)
+                if face_encoding_data==[]:
+                    remove(LOAD_DIR+"/"+filename[:-4]+".jpg")
+                    remove(LOAD_DIR+"/"+filename[:-4]+".mp3")
+                else:
+                    self.known_face_names.append(filename[:-4])
+                    self.known_face_encodings.append(face_encoding_data[0])
 
     def recognition(self, rgb_small_frame):
         """
@@ -40,15 +48,18 @@ class RecognitionClass:
         face_names = []
         
         for face_encoding in face_encodings:
+            name = "Unknown"
             # check if the face is a match for the known faces
             matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
-            
-            name = "Unknown"
+            if matches == []:
+                face_names.append(name)
+                return face_names
 
-            # take the first match
-            if True in matches:
-                first_match_index = matches.index(True)
-                name = self.known_face_names[first_match_index]
+            face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+            best_match_index = np.argmin(face_distances)
+            
+            if matches[best_match_index]:
+                name = self.known_face_names[best_match_index]
             face_names.append(name)
         return face_names
     
@@ -67,7 +78,9 @@ class RecognitionClass:
         """
         Announcing the name
         """
-        player = vlc.MediaPlayer("/home/pi/My_robot/face_and_voice/"+name+".mp3")
+        if Without_voice_announcement:
+            return
+        player = vlc.MediaPlayer(LOAD_DIR+"/"+name+".mp3")
         player.play()
 
         time.sleep(1.5)
@@ -75,20 +88,15 @@ class RecognitionClass:
         time.sleep(duration)
         return
 
-    def is_known_name(self, name):
-        """ return bool  - name is known/unknown """
-        return (path.exists("/home/pi/My_robot/face_and_voice/"+name+".mp3")
-                or path.exists("/home/pi/My_robot/face_and_voice/"+name+".jpg"))
-             
     def add_face_and_voice(self, name):
         """ add face and voice to the known group"""
         # add picture 
-        if path.exists("temp_img/temp.jpg"):
-            copy("temp_img/temp.jpg", "/home/pi/My_robot/face_and_voice/"+name+".jpg")
+        if path.exists(TEMP_DIR+"/temp.jpg"):
+            copy(TEMP_DIR+"/temp.jpg", LOAD_DIR+"/"+name+".jpg")
         # add voice
         text_to_speech = "Hello "+name
         speech = gTTS(text=text_to_speech, lang="en", slow=False)
-        speech.save("/home/pi/My_robot/face_and_voice/"+name+".mp3")
+        speech.save(LOAD_DIR+"/"+name+".mp3")
 
         return 
 

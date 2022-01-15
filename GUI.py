@@ -1,7 +1,12 @@
 import tkinter as tk
 from Who_is_it import find_face_def
-from new_face import add_face
+from video_module import Video_Class, is_known_name
+from config import *
 
+os.makedirs(ROOT_DIR+"/face_and_voice/", exist_ok=True)
+os.makedirs(ROOT_DIR+"/temp_img/", exist_ok=True)
+
+Video_cap = Video_Class()
 
 class GuiClass:
     def __init__(self, main):
@@ -9,7 +14,7 @@ class GuiClass:
         self.main = main
         self.frame = tk.Frame(self.main)
         self.main.title("Control panel")
-        self.main.geometry("500x100")
+        self.main.geometry(panel_size)
 
         # add buttons - find face and add new face
         self.Find_face_btn = tk.Button(self.main, text="Who is it?", command=self.find_face_gui)
@@ -25,15 +30,16 @@ class GuiClass:
     
     # call find face function from button
     def find_face_gui(self):
-        find_face_def()
+        Video_cap.find_face_def()
 
     # call add face function from button   
     def add_new_face_def(self):
+        name = self.name_face.get().lower()
         # make sure input is valid
-        if self.name_face.get() != "" and self.name_face.get().replace(" ", "").isalpha():
-            self.label_info['text'] = add_face(self.name_face.get().lower())
+        if name != "" and name.replace(" ", "").isalpha() and not is_known_name(name):
+            self.label_info['text'] = Video_cap.add_face(name)
         else:
-            self.label_info['text'] = "Name is invalid - name should be only letters"
+            self.label_info['text'] = "Name is invalid - name should be only letters or name in used - Choose a different name "
         
 
 root = tk.Tk()
