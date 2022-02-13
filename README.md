@@ -1,21 +1,21 @@
 # Human_identification_capabilities
 
-This repo build to demonstrate human identification capabilities - 
-1) Detect new faces -  see a new person , remember his facial features in memory and classify it by name. 
-2) Identification  - see familiar person and say his name.
+This repo is built to demonstrate human identification capabilities such as- - 
+1) Detect new faces - see a new person, remember his facial features in memory and classify it by name. 
+2) Identification - see familiar person and say his name.
 
 My goal is to learn computer vision, image processing, GUI .    
-I use [face_recognition](https://github.com/ageitgey/face_recognition) , opencv2 and Tkinter for this task.
+For this task I use [face_recognition](https://github.com/ageitgey/face_recognition) , [opencv2](https://pypi.org/project/opencv-python/) , [Tkinter](https://docs.python.org/3/library/tkinter.html) and [gTTS](https://gtts.readthedocs.io/en/latest/) .
 
-notes :
+Notes :
 1) The face_recognition library use "dlib" library. 
-2) Behind the scenes - to detect face "dlib" use HOG(Histogram of Oriented Gradients) model.  
-I recommend reading this article to understand how the HOG works -
+2) Under the hood - The library “dilb”, uses HOG(Histogram of Oriented Gradients) model in order to detect the face.
+In order to understand how HOG works, I recommend reading this article -
 https://medium.com/analytics-vidhya/a-take-on-h-o-g-feature-descriptor-e839ebba1e52
 
-3) This repo build on raspberry pi 4 + pi camera -FYI the FPS is very slow.
-4) This repo still use raspistill ,raspistill has been replaced by libcamera.
-5) For Text-to-Speech I use gTTS library. https://gtts.readthedocs.io/en/latest/  (need internet connection)
+3) This repo was built on raspberry pi 4 + pi camera -FYI the FPS is very slow.
+4) This repo still uses raspistill ,raspistill has been replaced by libcamera.
+5) I used gTTS library to create For Text-to-Speech - FYI need internet connection .
 
 
 # Get startted  
@@ -47,8 +47,8 @@ python GUI.py
 6) GUI have 2 option :  
 ![image](https://user-images.githubusercontent.com/82320340/153349685-66a8e63c-8655-473a-bf75-c611a2528931.png)
 
-a. "Who is it?" - detect face in front of the camera and if we see familiar face ,the PI will say his name.  
-b. "Add new face"  - will look for unknown faces and classify them with the name you enter in the input field.  
+a. "Who is it?" - detect a face in front of the camera and if it’s a familiar face ,the PI will say the person’s name.  
+b. "Add new face" - will look for unknown faces and classify them with the name you enter in the input field.  
 
 
 here exmple with obama-  
