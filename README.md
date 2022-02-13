@@ -1,6 +1,6 @@
 # Human_identification_capabilities
 
-This repo is built to demonstrate human identification capabilities such as- - 
+This repo is built to demonstrate human identification capabilities such as:
 1) Detect new faces - see a new person, remember his facial features in memory and classify it by name. 
 2) Identification - see familiar person and say his name.
 
