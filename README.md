@@ -46,9 +46,13 @@ python GUI.py
 
 6) GUI have 2 option :  
 ![image](https://user-images.githubusercontent.com/82320340/153349685-66a8e63c-8655-473a-bf75-c611a2528931.png)
+
 a. "Who is it?" - detect face in front of the camera and if we see familiar face ,the PI will say his name.  
 b. "Add new face"  - will look for unknown faces and classify them with the name you enter in the input field.  
 
 
 here exmple with obama-  
 ![image](https://user-images.githubusercontent.com/82320340/153770024-12d7c8d3-5285-4ffc-9f60-7db82a858c2c.png)
+
+
+Enjoy :)
