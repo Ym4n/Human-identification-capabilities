@@ -9,8 +9,8 @@ For this task I use [face_recognition](https://github.com/ageitgey/face_recognit
 
 Notes :
 1) The face_recognition library use "dlib" library. 
-2) Under the hood - The library “dilb”, uses HOG(Histogram of Oriented Gradients) model in order to detect the face.
-In order to understand how HOG works, I recommend reading this article -
+2) Under the hood - The library “dilb”, uses HOG(Histogram of Oriented Gradients) model in order to detect the face.  
+In order to understand how HOG works, I recommend reading this article -  
 https://medium.com/analytics-vidhya/a-take-on-h-o-g-feature-descriptor-e839ebba1e52
 
 3) This repo was built on raspberry pi 4 + pi camera -FYI the FPS is very slow.
