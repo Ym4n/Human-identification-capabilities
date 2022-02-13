@@ -50,5 +50,5 @@ a. "Who is it?" - detect face in front of the camera and if we see familiar face
 b. "Add new face"  - will look for unknown faces and classify them with the name you enter in the input field.  
 
 
-here exmple with obama.
+here exmple with obama-  
 ![image](https://user-images.githubusercontent.com/82320340/153770024-12d7c8d3-5285-4ffc-9f60-7db82a858c2c.png)
