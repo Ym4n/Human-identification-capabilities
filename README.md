@@ -7,7 +7,6 @@ This repo build to demonstrate human identification capabilities -
 My goal is to learn computer vision, image processing, GUI .    
 I use [face_recognition](https://github.com/ageitgey/face_recognition) , opencv2 and Tkinter for this task.
 
-
 notes :
 1) The face_recognition library use "dlib" library. 
 2) Behind the scenes - to detect face "dlib" use HOG(Histogram of Oriented Gradients) model.  
@@ -15,7 +14,8 @@ I recommend reading this article to understand how the HOG works -
 https://medium.com/analytics-vidhya/a-take-on-h-o-g-feature-descriptor-e839ebba1e52
 
 3) This repo build on raspberry pi 4 + pi camera -FYI the FPS is very slow.
-4) this repo still use raspistill ,raspistill has been replaced by libcamera.
+4) This repo still use raspistill ,raspistill has been replaced by libcamera.
+5) For Text-to-Speech I use gTTS library. https://gtts.readthedocs.io/en/latest/  (need internet connection)
 
 
 # Get startted  
@@ -45,8 +45,10 @@ python GUI.py
 ```
 
 6) GUI have 2 option :  
+![image](https://user-images.githubusercontent.com/82320340/153349685-66a8e63c-8655-473a-bf75-c611a2528931.png)
 a. "Who is it?" - detect face in front of the camera and if we see familiar face ,the PI will say his name.  
 b. "Add new face"  - will look for unknown faces and classify them with the name you enter in the input field.  
-![image](https://user-images.githubusercontent.com/82320340/153349685-66a8e63c-8655-473a-bf75-c611a2528931.png)
 
 
+here exmple with obama.
+![image](https://user-images.githubusercontent.com/82320340/153770024-12d7c8d3-5285-4ffc-9f60-7db82a858c2c.png)
